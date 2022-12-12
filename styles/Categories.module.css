@@ -1,0 +1,28 @@
+.category {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+
+  padding: 20px 20px;
+}
+.title {
+  font-size: 2em;
+  text-align: left;
+  margin-bottom: 30px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.item {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+  gap: 1em;
+}
+
+.message {
+  margin-top: 1em;
+  color: red;
+  text-align: center;
+}

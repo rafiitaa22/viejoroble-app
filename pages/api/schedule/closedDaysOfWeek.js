@@ -1,6 +1,6 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+// import { dbconnection } from "../dbconfig";
 
-var DB = require("./dbconfig2.js");
+var DB = require("../dbconfig2.js");
 
 export default async function handler(req, res) {
   const query = "SELECT * FROM `tblschedule`";

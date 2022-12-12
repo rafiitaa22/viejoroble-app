@@ -1,0 +1,39 @@
+.nav {
+  width: 100vw;
+  font-size: 1em;
+  padding: 20px 10px;
+  cursor: pointer;
+  position: fixed;
+  top: 75px;
+  background: var(--bgcolor);
+  z-index: 2;
+}
+
+.scroll {
+  display: flex;
+  gap: 5px;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.cat {
+  padding: 5px 10px;
+  white-space: nowrap;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.cat-selected {
+  padding: 5px 10px;
+  white-space: nowrap;
+  border-radius: 15px;
+  background-color: black;
+  color: white;
+}

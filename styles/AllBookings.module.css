@@ -1,0 +1,73 @@
+.allBookings {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.allBookings h1 {
+  margin-bottom: 20px;
+}
+
+.singleBooking {
+  width: 100%;
+  height: 46px;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  background-color: lightgray;
+  padding: 8px 12px;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: height 0.15s ease-out;
+}
+
+.expanded {
+  transition: height 0.5s ease-in;
+  height: 200px;
+}
+
+.title {
+  /* font-weight: bold; */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5em;
+  width: 100%;
+}
+.title h1 {
+  width: 100%;
+  font-style: italic;
+  margin: 0;
+}
+
+.singleBooking * {
+  font-size: 1em;
+}
+
+.additionalInfo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  font-size: 1em;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.additionalInfo div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5em;
+  background-color: transparent;
+  color: var(--bgGreen);
+  padding: 5px 15px;
+  border: 1px solid var(--bgGreen);
+  border-radius: 5px;
+}
+
+.additionalInfo div svg {
+  font-size: 1em;
+}
