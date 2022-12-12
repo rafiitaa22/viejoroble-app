@@ -14,6 +14,7 @@
     "@fontsource/roboto": "^4.5.8",
     "@mui/material": "^5.10.17",
     "@mui/x-date-pickers": "^5.0.9",
+    "bootstrap": "^5.2.3",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.7",
     "moment": "^2.29.4",
@@ -21,6 +22,7 @@
     "next": "13.0.6",
     "nodemailer": "^6.8.0",
     "react": "18.2.0",
+    "react-bootstrap": "^2.7.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
     "react-loader-spinner": "^5.3.4"

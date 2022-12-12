@@ -34,7 +34,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" aria-current="page" href="/carta">
+              <Link className="nav-link" aria-current="page" href="/carta" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-expanded="false">
                 Carta
               </Link>
             </li>

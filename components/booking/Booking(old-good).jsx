@@ -8,9 +8,6 @@ import { useRouter } from "next/router";
 import { MdExpandMore, MdExpandLess } from "react-icons/md"
 import classes from "../../styles/Booking.module.css";
 
-const LAST_BOOKING_STEP = 4
-
-
 const Booking = () => {
   const router = useRouter();
   const [selectedDate, setSelectedDate] = useState(
@@ -29,7 +26,7 @@ const Booking = () => {
   const [showSpinner, setShowSpinner] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [lsData, setLsData] = useState(null);
-  const [bookingStep, setBookingStep] = useState(0)
+
   const hourRef = useRef();
   const phoneRef = useRef();
   const nameRef = useRef();
@@ -303,14 +300,6 @@ const Booking = () => {
         </button>
       )}
       <form className={classes.booking} onSubmit={validateFormHandler}>
-        <div className={classes.bookingStep} >
-          <div className={classes.title}>
-            <div className={classes.stepTitle}>Fecha y hora</div>
-            <div className={classes.stepIcon}>
-              {showComments ? <MdExpandLess /> : <MdExpandMore />}
-            </div>
-          </div>
-        </div>
         <div className={classes.col}>
           <div className={classes.row}>
             <DatePicker

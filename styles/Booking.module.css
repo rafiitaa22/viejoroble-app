@@ -11,6 +11,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .booking {
   display: flex;
   flex-direction: row;
@@ -155,24 +156,48 @@
   font-style: italic;
 }
 
+.bookingStep {
+  width: 100%;
+  margin-top: 15px;
+
+}
+
+.bookingStep .title {
+  display: flex;
+}
+
+.stepTitle {
+  text-align: center;
+  font-weight: bold;
+}
+
+.stepIcon {
+  width: 20px;
+}
+
 @keyframes popout {
   from {
     transform: scale(0);
   }
+
   80% {
     transform: scale(1.2);
   }
+
   to {
     transform: scale(1);
   }
 }
+
 @-webkit-keyframes popout {
   from {
     -webkit-transform: scale(0);
   }
+
   80% {
     -webkit-transform: scale(1.2);
   }
+
   to {
     -webkit-transform: scale(1);
   }
@@ -182,6 +207,7 @@
   .booking {
     gap: 0rem;
   }
+
   .col {
     gap: 0rem;
   }
