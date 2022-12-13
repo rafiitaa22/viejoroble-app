@@ -5,8 +5,10 @@ import TimePicker from "./TimePicker";
 import { ThreeDots } from "react-loader-spinner";
 import { MORNING, AFTERNOON } from "../global";
 import { useRouter } from "next/router";
-import { MdExpandMore, MdExpandLess } from "react-icons/md"
+import { MdExpandMore, MdExpandLess } from "react-icons/md";
 import classes from "../../styles/Booking.module.css";
+
+const LAST_BOOKING_STEP = 4;
 
 const Booking = () => {
   const router = useRouter();
@@ -26,7 +28,7 @@ const Booking = () => {
   const [showSpinner, setShowSpinner] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [lsData, setLsData] = useState(null);
-
+  const [bookingStep, setBookingStep] = useState([true, false, false, false]);
   const hourRef = useRef();
   const phoneRef = useRef();
   const nameRef = useRef();
@@ -54,8 +56,9 @@ const Booking = () => {
       let openMorning = true;
       let openAfternoon = true;
       const weekDay = selectedDate.day();
-      const date = `${selectedDate.year()}-${selectedDate.month() + 1
-        }-${selectedDate.date()}`;
+      const date = `${selectedDate.year()}-${
+        selectedDate.month() + 1
+      }-${selectedDate.date()}`;
 
       //miramos horario normal
       const opensOnMorning =
@@ -179,7 +182,7 @@ const Booking = () => {
     fetch(`/api/users?phone=${e.target.value}`)
       .then((response) => {
         if (response.status === 200) {
-          return response.json()
+          return response.json();
         } else {
           setUserData(null);
           setPrefCont("whatsapp");
@@ -187,7 +190,7 @@ const Booking = () => {
           nameRef.current.disabled = false;
           apellidosRef.current.value = "";
           apellidosRef.current.disabled = false;
-          throw new Error
+          throw new Error();
         }
       })
       .then((data) => {
@@ -300,8 +303,25 @@ const Booking = () => {
         </button>
       )}
       <form className={classes.booking} onSubmit={validateFormHandler}>
-        <div className={classes.col}>
-          <div className={classes.row}>
+        <div
+          className={
+            bookingStep[0]
+              ? `${classes.bookingStep} ${classes.bookingStep_expand}`
+              : `${classes.bookingStep} ${classes.bookingStep_collapse}`
+          }
+        >
+          <div
+            className={classes.bookingStep_header}
+            onClick={() =>
+              setBookingStep((prev) => [!prev[0], false, false, false])
+            }
+          >
+            <div className={classes.bookingStep_header_title}>Fecha y hora</div>
+            <div className={classes.bookingStep_header_icon}>
+              {bookingStep[0] ? <MdExpandLess /> : <MdExpandMore />}
+            </div>
+          </div>
+          <div className={classes.bookingStep_body}>
             <DatePicker
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
@@ -312,8 +332,6 @@ const Booking = () => {
             <span className={classes.error}>
               {errors && errors.date && errors.date}
             </span>
-          </div>
-          <div className={classes.row}>
             <label htmlFor="time" className="form-label">
               Hora
             </label>
@@ -322,78 +340,141 @@ const Booking = () => {
               {errors && errors.time && errors.time}
             </span>
           </div>
-          <div className={classes["row-3"]}>
-            <label htmlFor="comensales" className="form-label mt-3">
-              Comensales
-            </label>
-            <input
-              type="number"
-              min="0"
-              max="99"
-              name="comensales"
-              className="form-control text-center"
-              ref={comensalesRef}
-              placeholder="Comensales"
-              required
-            />
+        </div>
+        <div
+          className={
+            bookingStep[1]
+              ? `${classes.bookingStep} ${classes.bookingStep_expand}`
+              : `${classes.bookingStep} ${classes.bookingStep_collapse}`
+          }
+        >
+          <div
+            className={classes.bookingStep_header}
+            onClick={() =>
+              setBookingStep((prev) => [false, !prev[1], false, false])
+            }
+          >
+            <div className={classes.bookingStep_header_title}>Comensales</div>
+            <div className={classes.bookingStep_header_icon}>
+              {bookingStep[1] ? <MdExpandLess /> : <MdExpandMore />}
+            </div>
           </div>
+          <div className={classes.bookingStep_body_row}>
+            <div className={classes.col}>
+              <div className={classes["row-3"]}>
+                <label htmlFor="comensales" className="form-label mt-3">
+                  Comensales
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  max="99"
+                  name="comensales"
+                  className="form-control text-center"
+                  ref={comensalesRef}
+                  placeholder="Comensales"
+                />
+              </div>
 
-          <div className={classes["row-3"]}>
-            <label htmlFor="tronas" className="form-label mt-3">
-              Tronas
-            </label>
-            <input
-              type="number"
-              min="0"
-              max="10"
-              name="tronas"
-              className="form-control text-center"
-              ref={tronasRef}
-              placeholder="Tronas"
-            />
-          </div>
+              <div className={classes["row-3"]}>
+                <label htmlFor="tronas" className="form-label mt-3">
+                  Tronas
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  max="10"
+                  name="tronas"
+                  className="form-control text-center"
+                  ref={tronasRef}
+                  placeholder="Tronas"
+                />
+              </div>
 
-          <div className={classes["row-3"]}>
-            <label htmlFor="carros" className="form-label mt-3">
-              Carros
-            </label>
-            <input
-              type="number"
-              min="0"
-              max="10"
-              name="carros"
-              className="form-control text-center"
-              ref={carrosRef}
-              placeholder="Carros"
-            />
-          </div>
-          <div className={classes.row}>
-            <span className={classes.error}>
-              {errors && errors.comensales && errors.comensales}
-            </span>
+              <div className={classes["row-3"]}>
+                <label htmlFor="carros" className="form-label mt-3">
+                  Carros
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  max="10"
+                  name="carros"
+                  className="form-control text-center"
+                  ref={carrosRef}
+                  placeholder="Carros"
+                />
+              </div>
+            </div>
+            <div>
+              <span className={classes.error}>
+                {errors && errors.comensales && errors.comensales}
+              </span>
 
-            <span className={classes.error}>
-              {errors && errors.tronas && errors.tronas}
-            </span>
+              <span className={classes.error}>
+                {errors && errors.tronas && errors.tronas}
+              </span>
 
-            <span className={classes.error}>
-              {errors && errors.carros && errors.carros}
-            </span>
-          </div>
-          <div className={classes.row}>
-            <label htmlFor="comentario" className="form-label mt-3" onClick={() => { setShowComments((prev) => !prev) }}>
-              ¿Algún comentario? {showComments ? <MdExpandLess /> : <MdExpandMore />}
-            </label>
-            {showComments && (<textarea
-              htmlFor="comentario"
-              className="form-control form-textarea"
-              ref={comentarioRef}
-            ></textarea>)}
+              <span className={classes.error}>
+                {errors && errors.carros && errors.carros}
+              </span>
+            </div>
           </div>
         </div>
 
-        <div className={classes.col}>
-          <div className={classes.row}>
+        <div
+          className={
+            bookingStep[2]
+              ? `${classes.bookingStep} ${classes.bookingStep_expand}`
+              : `${classes.bookingStep} ${classes.bookingStep_collapse}`
+          }
+        >
+          <div
+            className={classes.bookingStep_header}
+            onClick={() =>
+              setBookingStep((prev) => [false, false, !prev[2], false])
+            }
+          >
+            <div className={classes.bookingStep_header_title}>Comentarios</div>
+            <div className={classes.bookingStep_header_icon}>
+              {bookingStep[2] ? <MdExpandLess /> : <MdExpandMore />}
+            </div>
+          </div>
+          <div className={classes.bookingStep_body}>
+            <label
+              htmlFor="comentario"
+              className="form-label mt-3"
+              onClick={() => {
+                setShowComments((prev) => !prev);
+              }}
+            ></label>
+            <textarea
+              htmlFor="comentario"
+              className="form-control form-textarea"
+              ref={comentarioRef}
+            ></textarea>
+          </div>
+        </div>
+
+        <div
+          className={
+            bookingStep[3]
+              ? `${classes.bookingStep} ${classes.bookingStep_expand}`
+              : `${classes.bookingStep} ${classes.bookingStep_collapse}`
+          }
+        >
+          <div
+            className={classes.bookingStep_header}
+            onClick={() =>
+              setBookingStep((prev) => [false, false, false, !prev[3]])
+            }
+          >
+            <div className={classes.bookingStep_header_title}>Tus datos</div>
+            <div className={classes.bookingStep_header_icon}>
+              {bookingStep[3] ? <MdExpandLess /> : <MdExpandMore />}
+            </div>
+          </div>
+          <div className={classes.bookingStep_body}>
             <label htmlFor="phone" className="form-label mt-3">
               Teléfono móvil
             </label>
@@ -406,13 +487,11 @@ const Booking = () => {
               maxLength="9"
               minLength="9"
               placeholder="Teléfono móvil"
-              required
             />
             <span className={classes.error}>
               {errors && errors.phone && errors.phone}
             </span>
-          </div>
-          <div className={classes.row}>
+
             <label className="form-label mt-3">
               ¿Por dónde te respondemos?
             </label>
@@ -444,8 +523,6 @@ const Booking = () => {
                 SMS
               </label>
             </div>
-          </div>
-          <div className={classes.row}>
             <label htmlFor="name" className="form-label mt-3">
               Nombre
             </label>
@@ -455,13 +532,11 @@ const Booking = () => {
               className="form-control"
               ref={nameRef}
               placeholder="Nombre"
-              required
             />
             <span className={classes.error}>
               {errors && errors.nombre && errors.nombre}
             </span>
-          </div>
-          <div className={classes.row}>
+
             <label htmlFor="surname" className="form-label mt-3">
               Apellidos
             </label>
@@ -471,12 +546,18 @@ const Booking = () => {
               className="form-control"
               ref={apellidosRef}
               placeholder="Apellidos"
-              required
             />
             <span className={classes.error}>
               {errors && errors.apellidos && errors.apellidos}
             </span>
           </div>
+        </div>
+
+        <div className={classes.col}>
+          <div className={classes.row}></div>
+          <div className={classes.row}></div>
+          <div className={classes.row}></div>
+          <div className={classes.row}></div>
           {/* <div className={classes.row}>
           <label htmlFor="intolerancias" className="form-label mt-3">
             Intolerancias
@@ -497,7 +578,6 @@ const Booking = () => {
               type="checkbox"
               name="terminos"
               id="terminos"
-              required
             />
             <label
               className="form-check-label"

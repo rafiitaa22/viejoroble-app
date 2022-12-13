@@ -5,11 +5,8 @@ import TimePicker from "./TimePicker";
 import { ThreeDots } from "react-loader-spinner";
 import { MORNING, AFTERNOON } from "../global";
 import { useRouter } from "next/router";
-import { MdExpandMore, MdExpandLess } from "react-icons/md"
+import { MdExpandMore, MdExpandLess } from "react-icons/md";
 import classes from "../../styles/Booking.module.css";
-
-const LAST_BOOKING_STEP = 4
-
 
 const Booking = () => {
   const router = useRouter();
@@ -29,7 +26,7 @@ const Booking = () => {
   const [showSpinner, setShowSpinner] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [lsData, setLsData] = useState(null);
-  const [bookingStep, setBookingStep] = useState(0)
+
   const hourRef = useRef();
   const phoneRef = useRef();
   const nameRef = useRef();
@@ -57,8 +54,9 @@ const Booking = () => {
       let openMorning = true;
       let openAfternoon = true;
       const weekDay = selectedDate.day();
-      const date = `${selectedDate.year()}-${selectedDate.month() + 1
-        }-${selectedDate.date()}`;
+      const date = `${selectedDate.year()}-${
+        selectedDate.month() + 1
+      }-${selectedDate.date()}`;
 
       //miramos horario normal
       const opensOnMorning =
@@ -182,7 +180,7 @@ const Booking = () => {
     fetch(`/api/users?phone=${e.target.value}`)
       .then((response) => {
         if (response.status === 200) {
-          return response.json()
+          return response.json();
         } else {
           setUserData(null);
           setPrefCont("whatsapp");
@@ -190,7 +188,7 @@ const Booking = () => {
           nameRef.current.disabled = false;
           apellidosRef.current.value = "";
           apellidosRef.current.disabled = false;
-          throw new Error
+          throw new Error();
         }
       })
       .then((data) => {
@@ -229,7 +227,7 @@ const Booking = () => {
     const carros = carrosRef.current.value || "0";
     // const intolerancias = intoleranciasRef.current.value;
     const intolerancias = "";
-    const comentario = comentarioRef.current.value;
+    const comentario = comentarioRef.current ? comentarioRef.current.value : "";
     const formData = {
       userID,
       nombre,
@@ -266,6 +264,15 @@ const Booking = () => {
         }
         if (data.hasOwnProperty("bookingID")) {
           localStorage.setItem("lastBookingHash", JSON.stringify(data));
+          fetch("/api/email", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => response.json)
+            .then((data) => console.log("mail enviado"));
           window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
           router.push(`/booking/${encodeURIComponent(data.hash)}`);
         }
@@ -303,14 +310,6 @@ const Booking = () => {
         </button>
       )}
       <form className={classes.booking} onSubmit={validateFormHandler}>
-        <div className={classes.bookingStep} >
-          <div className={classes.title}>
-            <div className={classes.stepTitle}>Fecha y hora</div>
-            <div className={classes.stepIcon}>
-              {showComments ? <MdExpandLess /> : <MdExpandMore />}
-            </div>
-          </div>
-        </div>
         <div className={classes.col}>
           <div className={classes.row}>
             <DatePicker
@@ -392,14 +391,23 @@ const Booking = () => {
             </span>
           </div>
           <div className={classes.row}>
-            <label htmlFor="comentario" className="form-label mt-3" onClick={() => { setShowComments((prev) => !prev) }}>
-              ¿Algún comentario? {showComments ? <MdExpandLess /> : <MdExpandMore />}
-            </label>
-            {showComments && (<textarea
+            <label
               htmlFor="comentario"
-              className="form-control form-textarea"
-              ref={comentarioRef}
-            ></textarea>)}
+              className="form-label mt-3"
+              onClick={() => {
+                setShowComments((prev) => !prev);
+              }}
+            >
+              ¿Algún comentario?{" "}
+              {showComments ? <MdExpandLess /> : <MdExpandMore />}
+            </label>
+            {showComments && (
+              <textarea
+                htmlFor="comentario"
+                className="form-control form-textarea"
+                ref={comentarioRef}
+              ></textarea>
+            )}
           </div>
         </div>
 

@@ -158,21 +158,53 @@
 
 .bookingStep {
   width: 100%;
+  width: 350px;
   margin-top: 15px;
-
-}
-
-.bookingStep .title {
   display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: lightgray;
+  border-radius: 5px;
 }
 
-.stepTitle {
+.bookingStep_expand {
+  height: 100%;
+  transition: height 0.15s ease-in;
+}
+
+.bookingStep_collapse {
+  height: 44px;
+  transition: height 0.15s ease-in;
+}
+.bookingStep_header {
+  display: flex;
+  flex-direction: row;
+  background-color: gray;
+  padding: 10px;
+  color: white;
+}
+
+.bookingStep_header_title {
   text-align: center;
   font-weight: bold;
+  width: 100%;
 }
 
-.stepIcon {
+.bookingStep_header_icon {
   width: 20px;
+}
+
+.bookingStep_body {
+  width: 100%;
+  padding: 15px;
+}
+.bookingStep_body_row {
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 @keyframes popout {
