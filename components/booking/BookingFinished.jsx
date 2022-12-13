@@ -8,6 +8,7 @@ import { TbBabyCarriage } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import StatusIcon from "./StatusIcon";
 import { useRouter } from "next/router";
+import "dayjs/locale/es";
 
 const BookingFinished = () => {
   const router = useRouter();
@@ -37,9 +38,11 @@ const BookingFinished = () => {
   const replaceBookingInfo = (text) => {
     console.log(text);
     console.log(bookingInfo);
+    dayjs.locale('es')
     return text
       .replace("{nombre}", bookingInfo.nombre)
       .replace("{day}", dayjs(bookingInfo.fecha_reserva).date())
+      .replace("{weekDay}", dayjs(bookingInfo.fecha_reserva).format("dddd"))
       .replace("{month}", MESES[dayjs(bookingInfo.fecha_reserva).month()])
       .replace("{year}", dayjs(bookingInfo.fecha_reserva).year())
       .replace("{hour}", dayjs(bookingInfo.fecha_reserva).format("HH:mm"))

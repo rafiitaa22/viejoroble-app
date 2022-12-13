@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Categories from "./Categories.jsx";
 import CategoriesNav from "./CategoriesNav.jsx";
 import classes from "../../styles/Products.module.css";
@@ -9,30 +9,48 @@ const Carta = () => {
   const [categories, setCategories] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [products, setProducts] = useState(null);
-
-  const fetchCategories = () => {
-    fetch("/api/categories")
-      .then((response) => response.json())
-      .then((data) => {
-        setCategories(data);
-      });
-  };
-
-  const fetchProducts = () => {
-    fetch("/api/products")
-      .then((response) => response.json())
-      .then((data) => {
-        if (data && data.length > 0) {
-          const products = data.filter((product) => product.visible === 1);
-          setProducts(products);
-        }
-      });
-  };
+  const catNavRef = useRef();
 
   useEffect(() => {
+    const fetchCategories = () => {
+      fetch("/api/categories")
+        .then((response) => response.json())
+        .then((data) => {
+          setCategories(data);
+        });
+    };
+
+    const fetchProducts = () => {
+      fetch("/api/products")
+        .then((response) => response.json())
+        .then((data) => {
+          if (data && data.length > 0) {
+            const products = data.filter((product) => product.visible === 1);
+            setProducts(products);
+          }
+        });
+    };
+
     fetchCategories();
     fetchProducts();
   }, []);
+
+  const selectCategoryHandler = (e) => {
+    console.log("selected cat:", parseInt(selectedCategory), typeof parseInt(selectedCategory))
+    console.log("marcada: ", parseInt(e.target.id), typeof parseInt(e.target.id))
+    if (
+      parseInt(selectedCategory) !== parseInt(e.target.id) &&
+      parseInt(e.target.id) !== 0
+    ) {
+      console.log("entra")
+      setSelectedCategory(parseInt(e.target.id));
+      e.target.scrollIntoView({ inline: 'center' })
+    } else {
+      setSelectedCategory(null);
+      catNavRef.current.scrollLeft = 0;
+    }
+
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -49,7 +67,8 @@ const Carta = () => {
       <CategoriesNav
         data={categories}
         selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
+        selectCategoryHandler={selectCategoryHandler}
+        catNavRef={catNavRef}
       />
 
       <div style={{ marginTop: "60px" }}>

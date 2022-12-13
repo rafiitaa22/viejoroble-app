@@ -14,6 +14,7 @@
     "@fontsource/roboto": "^4.5.8",
     "@mui/material": "^5.10.17",
     "@mui/x-date-pickers": "^5.0.9",
+    "@next/bundle-analyzer": "^13.0.6",
     "bootstrap": "^5.2.3",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.7",
