@@ -1,12 +1,16 @@
 .nav {
-  width: 100vw;
+  width: 90%;
   font-size: 1em;
   padding: 20px 10px;
   cursor: pointer;
   position: fixed;
   top: 75px;
+  left: 5%;
   background: var(--bgcolor);
   z-index: 2;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
 }
 
 .scroll {
@@ -15,8 +19,10 @@
   justify-content: flex-start;
   flex-wrap: nowrap;
   overflow-x: auto;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .scroll::-webkit-scrollbar {

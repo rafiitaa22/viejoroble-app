@@ -17,19 +17,17 @@ export default async function handler(req, res) {
         rejectUnauthorized: false,
       },
     };
+    console.log(req.body)
     dayjs.locale("es");
     const data = req.body;
     console.log("datos", data);
-    const text = `Nueva reserva
-  
+    const text = `
     Nombre: ${data.nombre} 
     Teléfono: ${data.phone} 
-    Fecha: ${dayjs(data.date).format("dddd")}, ${data.day}-${data.month}-${
-      data.year
-    } a las ${data.hour}h 
-    Comensales: ${data.comensales} ${
-      data.tronas && " - " + data.tronas + " tronas"
-    } ${data.carros && " - " + data.carros + " carros"} 
+    Fecha: ${dayjs(data.date).format("dddd")}, ${data.day}-${data.month}-${data.year
+      } a las ${data.hour}h 
+    Comensales: ${data.comensales} + " comensales " ${data.tronas && " - " + data.tronas + " tronas"
+      } ${data.carros && " - " + data.carros + " carros"} 
     Comentario: ${data.comentario}
 
 
@@ -48,7 +46,7 @@ export default async function handler(req, res) {
 
     let message = {
       from: process.env.MAIL_USER,
-      to: "rafiitaa22@gmail.com",
+      to: process.env.BOOKING_ADMIN_MAIL,
       subject: "NUEVA RESERVA",
       text: text,
     };

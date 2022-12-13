@@ -44,7 +44,7 @@ export const MESES = [
 export const ESTADOS = {
   0: {
     title: `¡Reserva enviada {nombre}!`,
-    text: `Hemos recibido tu reserva para el día {day} de {month} del {year} las {hour}h y te
+    text: `Hemos recibido tu reserva para el {weekDay}, {day} de {month} del {year} las {hour}h y te
     la confirmaremos por {prefCont} en la mayor brevedad posible.`,
     statusText: "Pendiente de aceptar",
     color: "white",
