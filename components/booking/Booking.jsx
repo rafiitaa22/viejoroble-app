@@ -54,9 +54,8 @@ const Booking = () => {
       let openMorning = true;
       let openAfternoon = true;
       const weekDay = selectedDate.day();
-      const date = `${selectedDate.year()}-${
-        selectedDate.month() + 1
-      }-${selectedDate.date()}`;
+      const date = `${selectedDate.year()}-${selectedDate.month() + 1
+        }-${selectedDate.date()}`;
 
       //miramos horario normal
       const opensOnMorning =
